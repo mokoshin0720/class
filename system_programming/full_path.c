@@ -2,37 +2,43 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <dirent.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 ino_t get_inode(char *);
-void printpathto(ino_t);
+void print_path_to(ino_t);
 void inum_to_name(ino_t, char *, int);
-void chdir();
-void exit();
-void strncpy();
 
 int main()
 {
-    printpathto(get_inode("."));
+    print_path_to(get_inode(".")); // カレントディレクトリまでの絶対パスを出力
     putchar('\n');
     return 0;
 }
 
-void printpathto(ino_t this_inode)
+/*
+引数のディレクトリまでのパスを出力する関数
+*/
+void print_path_to(ino_t this_inode)
 {
     ino_t my_inode;
     char its_name[BUFSIZ];
 
     if(get_inode("..") != this_inode)
     {
-        chdir("..");
+        chdir(".."); // 1つ上のディレクトリへ移動する
         
-        inum_to_name(this_inode, its_name, BUFSIZ);
-
-        my_inode = get_inode(".");
-        printpathto(my_inode);
-        printf("%s", its_name);
+        inum_to_name(this_inode, its_name, BUFSIZ); // サブディレクトリ名の取得
+        my_inode = get_inode("."); // カレントディレクトリのiノード番号を取得
+        print_path_to(my_inode);  //　再帰処理
+        printf("%s/", its_name);
     }
 }
+
+/*
+カレントディレクトリから引数のiノード番号を持つファイルを探し、名前をnamebufにコピーする関数
+*/
 
 void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen)
 {
@@ -40,7 +46,7 @@ void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen)
     struct dirent *direntp;
 
     dir_ptr = opendir(".");
-    if(dir_ptr == NULL)
+    if(dir_ptr == NULL) // ディレクトリが存在しない場合
     {
         perror(".");
         exit(1);
@@ -54,17 +60,20 @@ void inum_to_name(ino_t inode_to_find, char *namebuf, int buflen)
             closedir(dir_ptr);
             return;
         }
-    fprintf(stderr, "error looking for inum %d\n", inode_to_find);
+    fprintf(stderr, "error looking for inum %llu\n", inode_to_find);
     exit(1);
 }
 
+/*
+ファイルのiノード番号を返す関数
+*/
 ino_t get_inode(char *frame)
 {
     struct stat info;
 
     if(stat(frame, &info) == -1)
     {
-        fprintf(stderr, "Cannot stat");
+        fprintf(stderr, "stat error");
         perror(frame);
         exit(1);
     }
