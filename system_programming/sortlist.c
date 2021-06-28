@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-​
+
 struct entry {
   char name[32];
   char sex;
@@ -10,18 +10,18 @@ struct entry {
   struct entry *next;
   struct entry *prev;;
 };
-​
+
 struct entry *CreateEntry()
 {
   struct entry *ep;
-​
+
   ep = (struct entry *)malloc(sizeof(struct entry));
   ep->next = NULL;
   ep->prev = NULL;
   
   return ep;
 }
-​
+
 struct entry *ReadEntryData(struct entry *Top)
 {
   struct entry *ep;
@@ -30,8 +30,8 @@ struct entry *ReadEntryData(struct entry *Top)
   char name[32];
   char sex;
   int age;
-​
-​
+
+
   while (fgets(buf, sizeof(buf), stdin) != NULL) {
     /*
      * Node setup
@@ -45,7 +45,7 @@ struct entry *ReadEntryData(struct entry *Top)
       ep->next->prev = ep;
       ep = ep->next;
     }
-​
+
     cp = buf;
     tp = cp;
     if((cp = index(tp, ' ')) == NULL) {
@@ -57,12 +57,12 @@ struct entry *ReadEntryData(struct entry *Top)
     
     ep->sex = *cp++;
     cp++;
-​
+
     ep->age = atoi(cp);
   }
   return (Top);
 }
-​
+
 /*
  * Modifty the sorting function
  */
@@ -73,9 +73,9 @@ struct entry * sortlist(struct entry *top)
   struct entry *maxp;
     struct entry *ep;
   int flag;
-​
+
   maxp = top;
-​
+
   for(cp = top; cp != NULL; cp = cp->next) {
     if (maxp->age < cp->age) maxp = cp;
   }
@@ -89,11 +89,11 @@ struct entry * sortlist(struct entry *top)
   }
     
   sortp = top;
-​
+
   
   while (sortp->next != NULL) {
     maxp = sortp->next;
-​
+
     flag = 0;
     for (cp = sortp->next; cp != NULL; cp = cp->next) {
       if (cp->age > maxp->age) {
@@ -108,7 +108,7 @@ struct entry * sortlist(struct entry *top)
       }
       break;
     }
-​
+
     /*
      * move maxp sortp 
      */
@@ -124,18 +124,18 @@ struct entry * sortlist(struct entry *top)
     
   return(top);
 }
-​
+
 int main()
 {
   struct entry *Top;
   struct entry *ep;
-​
+
   /*
    * read data
    */
   Top = (struct entry *)NULL;
   Top = ReadEntryData(Top);
-​
+
   /*
    * Print out Entry Data
    *
@@ -148,11 +148,11 @@ int main()
    * sorting by age
    */
   Top = sortlist(Top);
-​
+
   printf("Name\tSex\tAge\n");
   for (ep = Top; ep != NULL; ep = ep->next) {
     printf("%s\t\t%c\t%d\n", ep->name, ep->sex, ep->age);
   }
-​
-​
+
+
 }
