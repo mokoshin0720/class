@@ -186,6 +186,7 @@ UPROGS=\
 	_zombie\
 	_ps\
 	_typeecho\
+	_hello\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
