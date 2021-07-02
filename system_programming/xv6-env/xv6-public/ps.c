@@ -4,12 +4,12 @@
 #include "user.h"
 #include "param.h"
 
-
 int
 main(void)
 {
   enum procstate {UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE};
   
+  // 静的配列の定義
   static char *states[] = {
     [UNUSED]        "UNUSED",
     [EMBRYO]        "EMBRYO",
