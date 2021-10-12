@@ -58,6 +58,7 @@
 
         function stopDeviceMotion(){ 
             window.removeEventListener("devicemotion", handleAcceleration, false);
+            window.removeEventListener("deviceorientation", handleOrientation, false);
         }
 
         ////////////////////////////////////////////////////////////////////
@@ -73,9 +74,9 @@
             $('#accel-gravity-x').text(ev.accelerationIncludingGravity.x);
             $('#accel-gravity-y').text(ev.accelerationIncludingGravity.y);
             $('#accel-gravity-z').text(ev.accelerationIncludingGravity.z);
-            $('#rotation-alpha').text(ev.rorationRate.alpha);
-            $('#rotation-beta').text(ev.rorationRate.beta);
-            $('#rotation-gamma').text(ev.rorationRate.gamma);
+            $('#rotation-alpha').text(ev.rotationRate.alpha);
+            $('#rotation-beta').text(ev.rotationRate.beta);
+            $('#rotation-gamma').text(ev.rotationRate.gamma);
         }
 
         function handleOrientation(ev) {
