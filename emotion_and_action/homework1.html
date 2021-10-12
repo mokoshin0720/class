@@ -15,6 +15,15 @@
         <p> X: <span id="accel-gravity-x">0</span> </p> 
         <p> Y: <span id="accel-gravity-y">0</span> </p> 
         <p> Z: <span id="accel-gravity-z">0</span> </p> 
+        <h2>Rotation</h2>
+        <p> X: <span id="rotation-alpha">0</span> </p> 
+        <p> Y: <span id="rotation-beta">0</span> </p> 
+        <p> Z: <span id="rotation-gamma">0</span> </p> 
+        <h2>Orientation</h2>
+        <p> Absolute: <span id="orientation-absolute">0</span> </p> 
+        <p> Alpha: <span id="orientation-alpha">0</span> </p> 
+        <p> Beta: <span id="orientation-beta">0</span> </p> 
+        <p> Gamma: <span id="orientation-gamma">0</span> </p> 
     </body>
 
     <script type="text/javascript">
@@ -32,6 +41,7 @@
             if (permissionState === 'granted') {
                 // 許可を得られた場合、devicemotionをイベントリスナーに追加
                 window.addEventListener("devicemotion", handleAcceleration, false);
+                window.addEventListener("deviceorientation", handleOrientation, false);
             } else {
                 // 許可を得られなかった場合の処理
                 console.log("Perrmission not granted!");
@@ -66,6 +76,13 @@
             $('#rotation-alpha').text(ev.rorationRate.alpha);
             $('#rotation-beta').text(ev.rorationRate.beta);
             $('#rotation-gamma').text(ev.rorationRate.gamma);
+        }
+
+        function handleOrientation(ev) {
+            $('#orientation-absolute').text(ev.absolute);
+            $('#orientation-alpha').text(ev.alpha);
+            $('#orientation-beta').text(ev.beta);
+            $('#orientation-gamma').text(ev.gamma);
         }
 
     </script>
