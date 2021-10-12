@@ -20,7 +20,7 @@
         <p> Y: <span id="rotation-beta">0</span> </p> 
         <p> Z: <span id="rotation-gamma">0</span> </p> 
         <h2>Orientation</h2>
-        <p> Absolute: <span id="orientation-absolute">0</span> </p> 
+        <p> Absolute: <span id="orientation-absolute">boolean</span> </p> 
         <p> Alpha: <span id="orientation-alpha">0</span> </p> 
         <p> Beta: <span id="orientation-beta">0</span> </p> 
         <p> Gamma: <span id="orientation-gamma">0</span> </p> 
@@ -44,8 +44,8 @@
                 window.addEventListener("deviceorientation", handleOrientation, false);
             } else {
                 // 許可を得られなかった場合の処理
-                console.log("Perrmission not granted!");
-                alert("Perrmission not granted!");
+                console.log("Permission not granted!");
+                alert("Permission not granted!");
             }
             }).catch(console.error) // https通信でない場合などで許可を取得出来なかった場合
 
@@ -53,6 +53,7 @@
             //For other devices
                 console.log("detected other device. so adding listener...");
                 window.addEventListener("devicemotion", handleAcceleration, false);
+                window.addEventListener("deviceorientation", handleOrientation, false);
             }
         }
 
@@ -80,7 +81,11 @@
         }
 
         function handleOrientation(ev) {
-            $('#orientation-absolute').text(ev.absolute);
+            if (ev.absolute) {
+                $('#orientation-absolute').text("true");
+            } else {
+                $('#orientation-absolute').text("false");
+            }
             $('#orientation-alpha').text(ev.alpha);
             $('#orientation-beta').text(ev.beta);
             $('#orientation-gamma').text(ev.gamma);
