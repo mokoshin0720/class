@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <h1>Data from accelerometer</h1>
+        <button onclick="requestMotionPermission();">Get permission and start sensing</button>
+        <button onclick="stopDeviceMotion();">Stop</button>
+        <h2>Acceleration</h2>
+        <p> X: <span id="accel-x">0</span> </p> 
+        <p> Y: <span id="accel-y">0</span> </p> 
+        <p> Z: <span id="accel-z">0</span> </p>
+        <h2>Acceleration of Gravity</h2>
+        <p> X: <span id="accel-gravity-x">0</span> </p> 
+        <p> Y: <span id="accel-gravity-y">0</span> </p> 
+        <p> Z: <span id="accel-gravity-z">0</span> </p> 
+    </body>
+
+    <script type="text/javascript">
+        alert("Welcome to sample page 1!");
+
+        //////////////////////////////////////////////////////
+        //Function to get sensor access permission from the browser
+        //////////////////////////////////////////////////////
+        function requestMotionPermission(){
+            if ( DeviceMotionEvent &&
+                typeof DeviceMotionEvent.requestPermission === 'function' ){
+                // iOS 13+ のSafari
+                // 許可を取得
+                DeviceMotionEvent.requestPermission().then(permissionState => {
+            if (permissionState === 'granted') {
+                // 許可を得られた場合、devicemotionをイベントリスナーに追加
+                window.addEventListener("devicemotion", handleAcceleration, false);
+            } else {
+                // 許可を得られなかった場合の処理
+                console.log("Perrmission not granted!");
+                alert("Perrmission not granted!");
+            }
+            }).catch(console.error) // https通信でない場合などで許可を取得出来なかった場合
+
+            } else {
+            //For other devices
+                console.log("detected other device. so adding listener...");
+                window.addEventListener("devicemotion", handleAcceleration, false);
+            }
+        }
+
+        function stopDeviceMotion(){ 
+            window.removeEventListener("devicemotion", handleAcceleration, false);
+        }
+
+        ////////////////////////////////////////////////////////////////////
+        //Function(1): to handle acceleration data
+        //  - This function will be called about 10-50 times per second
+        ////////////////////////////////////////////////////////////////////
+        function handleAcceleration(ev){
+
+        //alert("" + event.acceleration.x + " " + event.acceleration.y + " " + event.acceleration.z);
+            $('#accel-x').text( ev.acceleration.x );
+            $('#accel-y').text( ev.acceleration.y );
+            $('#accel-z').text( ev.acceleration.z );
+            $('#accel-gravity-x').text(ev.accelerationIncludingGravity.x);
+            $('#accel-gravity-y').text(ev.accelerationIncludingGravity.y);
+            $('#accel-gravity-z').text(ev.accelerationIncludingGravity.z);
+            $('#rotation-alpha').text(ev.rorationRate.alpha);
+            $('#rotation-beta').text(ev.rorationRate.beta);
+            $('#rotation-gamma').text(ev.rorationRate.gamma);
+        }
+
+    </script>
+</html>
