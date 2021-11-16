@@ -1,11 +1,15 @@
 import tweepy
 import config
 
-auth = tweepy.OAuthHandler(config.CONSUMER_KEY, config.CONSUMER_SECRET)
-auth.set_access_token(config.ACCESS_TOKEN, config.ACCESS_SECRET)
+def run():
+    api = config.get_api()
 
-api = tweepy.API(auth)
+    for tweet in tweepy.Cursor(api.search_tweets, q="スマブラ").items(10):
+        if tweet.in_reply_to_user_id == None:
+            continue
+        print(tweet.text)
+        print(tweet.id)
+        print(tweet.user.id)
 
-public_tweets = api.home_timeline()
-for tweet in public_tweets:
-    print(tweet.text)
+if __name__ == "__main__":
+    run()
