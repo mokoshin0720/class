@@ -12,6 +12,7 @@ def run():
         if is_valid_text(tweet) == False:
             continue
         print(tweet.text)
+        print(tweet.id)
         print(tweet.in_reply_to_user_id)
 
         text = clean_text(tweet.text)
@@ -19,6 +20,12 @@ def run():
         print("======================")
         cnt += 1
     print(cnt)
+
+def searcy_by_id(id):
+    api = config.get_api()
+
+    tweet = api.get_status(id=id)
+    print(tweet.text)
 
 def clean_text(text):
     text = demoji.replace(string=text)
@@ -34,7 +41,12 @@ def is_valid_text(tweet):
     p = re.compile(r'^[a-zA-Z0-9\?!\$&\-(),…\.\'# ]+$')
     if p.fullmatch(text) == None:
         return False
+
+    if tweet.metadata["iso_language_code"] != "en":
+        return False
+
     return True
 
 if __name__ == "__main__":
     run()
+    # searcy_by_id(1460860112273395715)
