@@ -2,14 +2,16 @@ import tweepy
 import config
 import demoji
 import re
+import csv
 
 def run():
     api = config.get_api()
     cnt = 0
     all_list = []
+    total = 100000
 
     q = "? -filter:retweets exclude:retweets lang:en"
-    for tweet in tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(100):
+    for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
         conversation_list = []
         conversation_valid_flg = False
 
@@ -20,12 +22,12 @@ def run():
         conversation_list.append(text)
 
         print("**********************")
-        print("** New Conversation **")
+        print("New Conversation")
+        print("now:", i, "/", total)
         print("**********************")
         print(get_tweet_url(tweet))
 
         turn = 0
-        context = []
         while tweet.in_reply_to_status_id != None:
             try:
                 if turn >= 5:
@@ -37,7 +39,7 @@ def run():
                 turn += 1
                 tweet = searcy_by_id(tweet.in_reply_to_status_id)
                 text = clean_text(tweet.full_text)
-                context.append(text)
+                conversation_list.append(text)
 
             except Exception as e:
                 break
@@ -48,9 +50,9 @@ def run():
             print("**********************")
             continue
 
-        conversation_list.append(context)
         all_list.append(conversation_list)
     print(all_list)
+    output_to_csv(all_list)
 
 def searcy_by_id(id):
     api = config.get_api()
@@ -88,6 +90,12 @@ def get_tweet_url(tweet):
     url = "https://twitter.com/" + user_id + "/status/" + tweet_id
     return url
 
+def output_to_csv(all_list):
+    f = open("out.csv", "w", newline="", encoding="utf_8_sig")
+    writer = csv.writer(f)
+    writer.writerows(all_list)
+    f.close()
+    return
 
 if __name__ == "__main__":
     run()
