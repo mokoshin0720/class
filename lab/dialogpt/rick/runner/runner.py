@@ -1,6 +1,6 @@
-from settings import Args, logger
-from dataset import set_seed, load_and_cache_examples
-from train import train
+from ..setting.settings import Args, logger
+from ..dataset.dataset import set_seed, load_and_cache_examples
+from ..train.train import train
 from transformers import AutoConfig, AutoTokenizer, AutoModelWithLMHead
 import os
 import torch

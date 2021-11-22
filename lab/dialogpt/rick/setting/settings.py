@@ -3,10 +3,6 @@ from transformers import (
     MODEL_WITH_LM_HEAD_MAPPING,
     WEIGHTS_NAME,
 )
-# try:
-#     from torch.utils.tensorboard import SummaryWriter
-# except ImportError:
-#     from tensorboardX import SummaryWriter
 
 logger = logging.getLogger(__name__)
 
