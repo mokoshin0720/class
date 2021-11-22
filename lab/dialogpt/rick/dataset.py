@@ -1,12 +1,21 @@
+from settings import logger
+from sklearn.model_selection import train_test_split
+from torch.utils.data import Dataset
+from transformers import PreTrainedTokenizer
+from typing import List
+import pandas as pd
+import numpy as np
+import random
+import torch
+import os
+import pickle
+
 """データセット"""
 
-all_rick = pd.read_csv('nakazawa_lab/dialoGPT/RickAndMortyScripts.csv')
-all_rick.head(10)
+all_rick = pd.read_csv("dialogpt/rick/RickAndMortyScripts.csv")
 
 """返答を返すまでに、会話履歴を7つ付け加えるように変形"""
-
 contexted = []
-
 n = 7
 
 for i in range(n, len(all_rick['line'])):
@@ -15,21 +24,17 @@ for i in range(n, len(all_rick['line'])):
   for j in range(i, prev, -1):
     row.append(all_rick['line'][j])
   contexted.append(row)
-print(contexted)
 
 """columnの追加"""
 
 columns = ['response', 'context']
 columns = columns + ['context/'+str(i) for i in range(n-1)]
-columns
 
 df = pd.DataFrame.from_records(contexted, columns=columns)
-df.head(5)
 
 """データを分割"""
 
 trn_df, val_df = train_test_split(df, test_size=0.1)
-trn_df.head()
 
 """データセットをモデルに適応させる
 - 文章を"end of string"で区切る
@@ -37,16 +42,10 @@ trn_df.head()
 
 
 def construct_conv(row, tokenizer, eos=True):
-    print(row)
     def flatten(l): return [item for sublist in l for item in sublist]
     conv = list(
         reversed([tokenizer.encode(x) + [tokenizer.eos_token_id] for x in row]))
     conv = flatten(conv)
-    print("****************")
-    print(conv)
-    print("=============")
-    print("=============")
-    print("=============")
     return conv
 
 

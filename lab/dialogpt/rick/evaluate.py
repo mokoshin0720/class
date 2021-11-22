@@ -1,3 +1,6 @@
+from transformers import PreTrainedModel, PreTrainedTokenizer
+from typing import Dict
+
 def evaluate(args, model: PreTrainedModel, tokenizer: PreTrainedTokenizer, df_trn, df_val, prefix="") -> Dict:
     # Loop to handle MNLI double evaluation (matched, mis-matched)
     eval_output_dir = args.output_dir

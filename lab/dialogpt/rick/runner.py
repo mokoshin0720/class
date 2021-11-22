@@ -1,3 +1,11 @@
+from settings import Args, logger
+from dataset import set_seed, load_and_cache_examples
+from train import train
+from transformers import AutoConfig, AutoTokenizer, AutoModelWithLMHead
+import os
+import torch
+import logging
+
 def main(df_trn, df_val):
     args = Args()
 
@@ -23,7 +31,7 @@ def main(df_trn, df_val):
         )
 
     # Setup CUDA, GPU & distributed training
-    device = torch.device("cuda")
+    device = torch.device("cpu")
     args.n_gpu = torch.cuda.device_count()
     args.device = device
 
