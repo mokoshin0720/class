@@ -10,16 +10,21 @@ using UnityEngine.InputSystem;
 /// </summary>
 public sealed class Game : GameBase
 {
-    // 変数の宣言
-    int sec = 0;
+    int money;
+    const int CARD_TYPE = 10;
+    int[] card_count = new int[CARD_TYPE];
+    string[] card_name = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J"
+    };
+    bool isComplete;
+    int new_card;
 
     /// <summary>
     /// 初期化処理
     /// </summary>
     public override void InitGame()
     {
-        // キャンバスの大きさを設定します
-        gc.ChangeCanvasSize(720, 1280);
+        resetValue();
     }
 
     /// <summary>
@@ -27,8 +32,28 @@ public sealed class Game : GameBase
     /// </summary>
     public override void UpdateGame()
     {
-        // 起動からの経過時間を取得します
-        sec = (int)gc.TimeSinceStartup;
+        if (gc.GetPointerFrameCount(0)==1 && !isComplete) {
+            money -= 100;
+
+            if (gc.Random(0, 3) == 0) {
+                new_card = gc.Random(0, 4);
+            } else {
+                new_card = gc.Random(5, 9);
+            }
+
+            card_count[new_card]++;
+
+            isComplete = false;
+            for (int i = 0; i < 5; i++) {
+                if (card_count[i] >= 5) {
+                    isComplete = true;
+                }
+            }
+        }
+
+        if (gc.GetPointerFrameCount(0) >= 120) {
+            resetValue();
+        }
     }
 
     /// <summary>
@@ -36,19 +61,32 @@ public sealed class Game : GameBase
     /// </summary>
     public override void DrawGame()
     {
-        // 画面を白で塗りつぶします
         gc.ClearScreen();
-
-        // 青空の画像を描画します
-        gc.DrawImage(GcImage.BlueSky, 0, 0);
-
-        // 黒の文字を描画します
         gc.SetColor(0, 0, 0);
-        gc.SetFontSize(48);
-        gc.SetStringAnchor(GcAnchor.UpperLeft);
-        gc.DrawString("この文字と青空の画像が", 40, 160);
-        gc.DrawString("見えていれば成功です", 40, 270);
-        gc.SetStringAnchor(GcAnchor.UpperRight);
-        gc.DrawString($"{sec}s", 630, 10);
+        gc.SetFontSize(36);
+        gc.DrawString("money:"+money, 60, 40);
+
+        if (new_card >= 0) {
+            gc.DrawString("new:" + card_name[new_card], 60, 80);
+        }
+
+        for (int i = 0; i <CARD_TYPE; i++) {
+            gc.DrawString(card_name[i] + ":" + card_count[i], 60, 120+i*40);
+        }
+
+        if (isComplete) {
+            gc.DrawString("complete!!", 60, 520);
+        }
+    }
+
+    void resetValue()
+    {
+        money = 10000;
+        for (int i =0; i < CARD_TYPE; i++) {
+            card_count[i] = 0;
+        }
+
+        isComplete = false;
+        new_card = -1;
     }
 }
