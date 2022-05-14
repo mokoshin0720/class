@@ -1,0 +1,116 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 7363023196ab8f541b231b866c0f5b1c, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 8ee002404870743728201972a85babc5, type: 3}
+  - {fileID: 21300000, guid: e66f9740f47024527a492389081ac2c8, type: 3}
+  - {fileID: 21300000, guid: ffdc97715f7db4cfe951a89d936749b6, type: 3}
+  - {fileID: 21300000, guid: 95fa8881e769c4c11bee3a8adde541fe, type: 3}
+  - {fileID: 21300000, guid: 990669b103a7b4fe093453e754292296, type: 3}
+  - {fileID: 21300000, guid: 4867dbc2ea9534a95afe1d3d4cdb55f2, type: 3}
+  - {fileID: 21300000, guid: 30cd442388f0b48a284b2cbdfb1ff29f, type: 3}
+  - {fileID: 21300000, guid: c1b4fb2347a1041cfaa2f4f88d502260, type: 3}
+  - {fileID: 21300000, guid: fcc739a49b3634a609b6d8150e4bd725, type: 3}
+  - {fileID: 21300000, guid: b7fd20551d34df04684ac005d1b54c14, type: 3}
+  - {fileID: 21300000, guid: 71babc557f24a424282b655f1114bb14, type: 3}
+  - {fileID: 21300000, guid: 7285bcf59fc654622a234495fbfc9604, type: 3}
+  - {fileID: 21300000, guid: 40af5416485cb48b7af85c6bbbff49b6, type: 3}
+  - {fileID: 21300000, guid: f6f63d964e45847019043efd5b610195, type: 3}
+  - {fileID: 21300000, guid: c98e8ff6e2c904ecc85d77250c481aa2, type: 3}
+  - {fileID: 21300000, guid: 0a167098a652d4e05aeb566117c324d0, type: 3}
+  - {fileID: 21300000, guid: e7c6eb98ab2e148c78fec4e705a373d4, type: 3}
+  - {fileID: 21300000, guid: 0d762b99901074dd0a444bbcefea03b5, type: 3}
+  - {fileID: 21300000, guid: 98c8e8c9a1cef41998e754648bd93fd0, type: 3}
+  - {fileID: 21300000, guid: f4fb650acbdae4d859b12d39b188859c, type: 3}
+  - {fileID: 21300000, guid: 95741a5a96b684d6890f542401c2b48a, type: 3}
+  - {fileID: 21300000, guid: f457504ba1a224b47a848d810ba369c1, type: 3}
+  - {fileID: 21300000, guid: 6a57034bd2224429fb0d9c5935f8efd2, type: 3}
+  - {fileID: 21300000, guid: 3212428bff945a84cb1e2c2aaf887e2d, type: 3}
+  - {fileID: 21300000, guid: a253ab9b469944a30a388aa60d714946, type: 3}
+  - {fileID: 21300000, guid: f3130dabf224146a9b832eaef40f5622, type: 3}
+  - {fileID: 21300000, guid: 42005afb256654d4db0ccb3704572942, type: 3}
+  - {fileID: 21300000, guid: 7ac213bcfe89d4a1783335aa8bb16cf3, type: 3}
+  - {fileID: 21300000, guid: b9ebb23d0890f4b9ab4ab57e47d1860c, type: 3}
+  - {fileID: 21300000, guid: c413ca9de9b6e48538c930227816b822, type: 3}
+  - {fileID: 21300000, guid: ddc3ccdd67f9a4c17a91381c0c95c7e2, type: 3}
+  - {fileID: 21300000, guid: d833ceddd923b42f98de837a7217d7f6, type: 3}
+  - {fileID: 21300000, guid: 7c20ac3e58f3f4669b8dd86dc2bc3af8, type: 3}
+  - {fileID: 21300000, guid: cb2d80ee7dd9e4f8a9ddaef76e8e31e4, type: 3}
+  - {fileID: 21300000, guid: 747b412fa142b47dfb3dc2849c5d7c4b, type: 3}
+  - {fileID: 21300000, guid: 91d5b73f8274a4aa989d13672a438718, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - BL1
+  - RR1
+  - BL3
+  - RR2
+  - RL1
+  - GL2
+  - BR3
+  - BR0
+  - YL2
+  - BallYellow
+  - GL1
+  - BR2
+  - YR3
+  - RR3
+  - GR3
+  - RL0
+  - RL3
+  - BL2
+  - YL3
+  - GR2
+  - BallBlue
+  - BL0
+  - YL0
+  - BlueSky
+  - GR1
+  - YR2
+  - BallRed
+  - YR1
+  - RR0
+  - GL0
+  - YL1
+  - RL2
+  - GL3
+  - GR0
+  - YR0
+  - BR1
+  m_RenderDataMap: {}
+  m_Tag: SpriteAtlas
+  m_IsVariant: 0
