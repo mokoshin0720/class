@@ -1,3 +1,4 @@
 *.zip
 *.csv
-data/*
+data/
+.DS_Store

@@ -5,7 +5,6 @@ weather =pd.read_csv("weather.csv", encoding="shift_jis")
 weather["年月日"] = pd.to_datetime(weather["年月日"])
 weather = weather.set_index("年月日")
 
-
 df = make_index_datetime("2020_14204010.csv")
 daily = convert_by_time_and_method(column, "D", "mean")
 

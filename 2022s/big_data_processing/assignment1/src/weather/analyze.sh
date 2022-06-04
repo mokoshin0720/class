@@ -12,5 +12,5 @@ head_and_tail_of_data() {
     nkf $FILE.csv | $METHOD
 }
 
-# word_count tsujidou
+word_count tsujidou
 head_and_tail_of_data weather tail
