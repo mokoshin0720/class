@@ -9,18 +9,20 @@ def run():
     all_list = []
     total = 100000
 
-    # q = "? since:2019-06-15 unitl:2019-06-16 -filter:retweets exclude:retweets lang:ja"
-    q = "国葬 exclude:nativeretweets"
-    for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
-        text, ok = is_valid_tweet(tweet)
-        if ok == False:
-            continue
+    try:
+        q = "国葬 exclude:nativeretweets"
+        for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
+            text, ok = is_valid_tweet(tweet)
+            if ok == False:
+                continue
 
-        all_list.append(text)
+            all_list.append(text)
 
-        print(i, "/", total)
-    print(all_list)
-    output_to_csv(all_list)
+            print(i, "/", total)
+        output_to_csv(all_list)
+    except:
+        print('error occured')
+        output_to_csv(all_list)
 
 def clean_text(text):
     text = demoji.replace(string=text) # 絵文字削除

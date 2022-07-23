@@ -5,3 +5,6 @@ jaconv
 demoji
 tweepy
 python-dotenv
+wordcloud
+matplotlib
+mecab-python3
