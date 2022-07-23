@@ -16,7 +16,6 @@ def get_word_merged_df():
 
     word_lists = []
 
-
     for i, row in enumerate(data):
         try:
             for t in analyzer.analyze(row[0]):
@@ -50,6 +49,9 @@ def get_score_df():
         result.append([i, text, score, score_r])
 
     score_df = pd.DataFrame(result, columns=['No.', 'テキスト', '累計スコア', '標準化スコア']).sort_values(by='標準化スコア').reset_index(drop=True)
-    print(score_df)
 
     return score_df
+
+if __name__ == '__main__':
+    df = get_score_df()
+    print(df)

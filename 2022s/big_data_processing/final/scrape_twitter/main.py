@@ -10,7 +10,7 @@ def run():
     total = 100000
 
     try:
-        q = "国葬 exclude:nativeretweets"
+        q = "安倍 exclude:nativeretweets"
         for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
             text, ok = is_valid_tweet(tweet)
             if ok == False:
