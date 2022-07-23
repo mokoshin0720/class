@@ -1,4 +1,7 @@
 # どんなBigDataを使うか
-
+twitterで国葬という単語が含まれているデータ
 
 # どんなモデルを使うか
+- 極性辞書を用いたネガポジ判定(https://qiita.com/g-k/items/e49f68d7e2fed6e300ea)
+- wordCloud
+    - ネガティブ or ポジティブごとに表示するとおもろそう

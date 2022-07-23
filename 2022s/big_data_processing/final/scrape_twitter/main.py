@@ -7,19 +7,18 @@ import csv
 def run():
     api = config.get_api()
     all_list = []
-    total = 100
+    total = 100000
 
     # q = "? since:2019-06-15 unitl:2019-06-16 -filter:retweets exclude:retweets lang:ja"
-    q = "スマブラ -filter:retweets exclude:retweets"
-    for tweet in tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended', since='2020-10-10_00:00:00_JST', until='2020-10-11_00:00:00_JST').items(total):
-        print(tweet.full_text)
-        print('======================')
-        
+    q = "国葬 exclude:nativeretweets"
+    for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
         text, ok = is_valid_tweet(tweet)
         if ok == False:
             continue
 
         all_list.append(text)
+
+        print(i, "/", total)
     print(all_list)
     output_to_csv(all_list)
 
@@ -30,6 +29,9 @@ def clean_text(text):
     text = re.sub(r"(https?|ftp)(:\/\/[-_\.!~*\'()a-zA-Z0-9;\/?:\@&=\+$,%#]+)", "" , text) # url削除
     text = text.replace("\n", "")
     text = text.replace("\t", "")
+    text = text.replace("\u3000", "")
+    text = text.replace("\u2069", "")
+    text = text.replace("\u2066", "")
     return text
 
 def get_timeline():
@@ -47,11 +49,11 @@ def is_valid_tweet(tweet):
     return text, True
 
 def output_to_csv(all_list):
-    f = open("out.csv", "w", newline="", encoding="utf_8_sig")
-    writer = csv.writer(f)
-    writer.writerows(all_list)
-    f.close()
-    return
+    with open("out.csv", "w") as file:
+        for line in all_list:
+            file.write(line)
+            file.write("\n")
+    return 
 
 if __name__ == "__main__":
     run()
