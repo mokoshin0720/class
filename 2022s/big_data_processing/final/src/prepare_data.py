@@ -16,14 +16,18 @@ def get_word_merged_df():
 
     word_lists = []
 
-    for i, row in enumerate(data):
-        for t in analyzer.analyze(row[0]):
-            surf = t.surface
-            base = t.base_form
-            pos = t.part_of_speech
-            reading = t.reading
 
-            word_lists.append([i, surf, base, pos, reading])
+    for i, row in enumerate(data):
+        try:
+            for t in analyzer.analyze(row[0]):
+                surf = t.surface
+                base = t.base_form
+                pos = t.part_of_speech
+                reading = t.reading
+
+                word_lists.append([i, surf, base, pos, reading])
+        except:
+            continue
 
     word_df = pd.DataFrame(word_lists, columns=['No', '単語', '基本形', '品詞', '読み'])
     word_df['品詞'] = word_df['品詞'].apply(lambda x : x.split(',')[0])
@@ -34,15 +38,18 @@ def get_word_merged_df():
 
     return score_result
 
-pd.set_option('display.max_rows', None)
-df = get_word_merged_df()
-result = []
-for i in range(len(df['No'].unique())):
-    tmp_df = df[df['No'] == i]
-    text = ''.join(list(tmp_df['単語']))
-    score = tmp_df['スコア'].astype(float).sum()
-    score_r = score / tmp_df['スコア'].astype(float).count()
-    result.append([i, text, score, score_r])
+def get_score_df():
+    pd.set_option('display.max_rows', None)
+    df = get_word_merged_df()
+    result = []
+    for i in range(len(df['No'].unique())):
+        tmp_df = df[df['No'] == i]
+        text = ''.join(list(tmp_df['単語']))
+        score = tmp_df['スコア'].astype(float).sum()
+        score_r = score / tmp_df['スコア'].astype(float).count()
+        result.append([i, text, score, score_r])
 
-score_df = pd.DataFrame(result, columns=['No.', 'テキスト', '累計スコア', '標準化スコア']).sort_values(by='標準化スコア').reset_index(drop=True)
-print(score_df)
+    score_df = pd.DataFrame(result, columns=['No.', 'テキスト', '累計スコア', '標準化スコア']).sort_values(by='標準化スコア').reset_index(drop=True)
+    print(score_df)
+
+    return score_df
