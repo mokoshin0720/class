@@ -2,7 +2,6 @@ import tweepy
 import config
 import demoji
 import re
-import csv
 
 def run():
     api = config.get_api()
@@ -10,7 +9,7 @@ def run():
     total = 100000
 
     try:
-        q = "安倍 exclude:nativeretweets"
+        q = "国葬 exclude:nativeretweets"
         for i, tweet in enumerate(tweepy.Cursor(api.search_tweets, q=q, result_type="mixed", tweet_mode='extended').items(total)):
             text, ok = is_valid_tweet(tweet)
             if ok == False:
@@ -51,7 +50,7 @@ def is_valid_tweet(tweet):
     return text, True
 
 def output_to_csv(all_list):
-    with open("out.csv", "w") as file:
+    with open("kokusou2.csv", "w") as file:
         for line in all_list:
             file.write(line)
             file.write("\n")

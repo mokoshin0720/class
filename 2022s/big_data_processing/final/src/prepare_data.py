@@ -6,7 +6,7 @@ from janome.charfilter import *
 from nega_posi import get_posnega_df
 
 def get_word_merged_df():
-    with open('out.csv', newline='') as f:
+    with open('kokusou.csv', newline='') as f:
         reader = csv.reader(f)
         data = list(reader)
 

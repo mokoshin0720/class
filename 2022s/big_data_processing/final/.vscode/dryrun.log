@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make[1]: Entering directory `/Users/shinya/Development/university/class/2022s/big_data_processing/final'
+pipenv install -r ./requirements.txt
+make[1]: Leaving directory `/Users/shinya/Development/university/class/2022s/big_data_processing/final'
+ 
